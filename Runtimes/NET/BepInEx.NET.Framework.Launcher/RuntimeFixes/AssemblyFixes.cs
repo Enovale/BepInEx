@@ -44,7 +44,9 @@ internal class AssemblyFixes
     }
 
     [HarmonyPrefix]
-    [HarmonyPatch("System.Reflection.RuntimeAssembly", nameof(Assembly.Location), MethodType.Getter)]
+    // RuntimeAssembly.Location does not exist in Mono 4.6.1 and thus this patch fails
+    [HarmonyPatch(typeof(Assembly), nameof(Assembly.Location), MethodType.Getter)]
+    //[HarmonyPatch("System.Reflection.RuntimeAssembly", nameof(Assembly.Location), MethodType.Getter)]
     public static bool GetLocation(ref string __result, Assembly __instance)
     {
         Logger.Log(LogLevel.Debug, $"GetLocation: {__instance.FullName}");

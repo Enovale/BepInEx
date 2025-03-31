@@ -97,11 +97,12 @@ public static class Paths
                                          string bepinRootPath = null,
                                          string managedPath = null,
                                          bool gameDataRelativeToManaged = false,
-                                         string[] dllSearchPath = null)
+                                         string[] dllSearchPath = null,
+                                         bool gameDataIsGameRoot = false)
     {
         ExecutablePath = executablePath;
         ProcessName = Path.GetFileNameWithoutExtension(executablePath);
-
+        
         GameRootPath = PlatformHelper.Is(Platform.MacOS)
                            ? Utility.ParentDirectory(executablePath, 4)
                            : Path.GetDirectoryName(executablePath);
@@ -109,6 +110,10 @@ public static class Paths
         if (managedPath != null && gameDataRelativeToManaged)
         {
             GameDataPath = Path.GetDirectoryName(managedPath);
+        }
+        else if (gameDataIsGameRoot)
+        {
+            GameDataPath = GameRootPath;
         }
         else
         {

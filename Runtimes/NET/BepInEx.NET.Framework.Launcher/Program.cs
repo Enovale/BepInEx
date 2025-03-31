@@ -82,7 +82,7 @@ internal static class NetPreloaderRunner
     {
         PlatformUtils.SetPlatform();
 
-        Paths.SetExecutablePath(filename);
+        Paths.SetExecutablePath(filename, gameDataIsGameRoot: true);
 
         AppDomain.CurrentDomain.AssemblyResolve += SharedEntrypoint.LocalResolve;
 

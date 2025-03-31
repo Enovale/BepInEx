@@ -61,7 +61,7 @@ public static class NetPreloader
         }
 
 
-        Paths.SetExecutablePath(executablePath);
+        Paths.SetExecutablePath(executablePath, gameDataIsGameRoot: true);
         Program.ResolveDirectories.Add(Paths.GameRootPath);
 
         foreach (var searchDir in Program.ResolveDirectories)

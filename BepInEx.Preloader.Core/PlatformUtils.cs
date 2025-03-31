@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using HarmonyLib;
 using MonoMod.Utils;
 
 namespace BepInEx.Preloader.Core;
@@ -127,6 +128,8 @@ internal static class PlatformUtils
                 current |= Platform.ARM;
         }
 
+        // This is inexplicably always locked in my testing with Mono 4.6.1 and there's no way to unlock it other than this.
+        AccessTools.Field(typeof(PlatformHelper), "_currentLocked").SetValue(null, false);
         PlatformHelper.Current = current;
     }
 
